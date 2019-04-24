@@ -1,0 +1,13 @@
+{
+    "clienttab": "Thunderbolt Devices",
+    "current_speed": "Current Speed",
+    "devices": "Thunderbolt Devices",
+    "device_serial_number": "Device Serial Number",
+    "name": "Device Name",
+    "nothunderbolt": "No Thunderbolt Devices",
+    "reporttitle": "Thunderbolt Report",
+    "thunderbolt": "Thunderbolt",
+    "type": "Device Type",
+    "vendor": "Vendor",
+    "report": "Thunderbolt Report"
+}
