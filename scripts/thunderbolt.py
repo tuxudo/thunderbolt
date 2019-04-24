@@ -91,10 +91,13 @@ def main():
     sys.setdefaultencoding('utf8')
 
     # Read in English localizations from SystemProfiler
-    if getOsVersion() > 13:
+    if os.path.isfile('/System/Library/SystemProfiler/SPThunderboltReporter.spreporter/Contents/Resources/en.lproj/Localizable.strings'):
         localization = FoundationPlist.readPlist('/System/Library/SystemProfiler/SPThunderboltReporter.spreporter/Contents/Resources/en.lproj/Localizable.strings')
-    else:
+    elif os.path.isfile('/System/Library/SystemProfiler/SPThunderboltReporter.spreporter/Contents/Resources/English.lproj/Localizable.strings'):
         localization = FoundationPlist.readPlist('/System/Library/SystemProfiler/SPThunderboltReporter.spreporter/Contents/Resources/English.lproj/Localizable.strings')
+    else:
+        print 'No SystemProfiler localization file found. Exiting'
+        exit(1)
 
     # Get results
     result = dict()
