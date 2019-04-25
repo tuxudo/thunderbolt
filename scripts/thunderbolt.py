@@ -68,11 +68,6 @@ def flatten_thunderbolt_info(array, localization):
             
     return out
 
-def getOsVersion():
-    """Returns the minor OS version."""
-    os_version_tuple = platform.mac_ver()[0].split('.')
-    return int(os_version_tuple[1])
-
 def main():
     """Main"""
     # Create cache dir if it does not exist
@@ -96,8 +91,7 @@ def main():
     elif os.path.isfile('/System/Library/SystemProfiler/SPThunderboltReporter.spreporter/Contents/Resources/English.lproj/Localizable.strings'):
         localization = FoundationPlist.readPlist('/System/Library/SystemProfiler/SPThunderboltReporter.spreporter/Contents/Resources/English.lproj/Localizable.strings')
     else:
-        print 'No SystemProfiler localization file found. Exiting'
-        exit(1)
+        localization = {}
 
     # Get results
     result = dict()
