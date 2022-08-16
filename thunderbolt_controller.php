@@ -34,15 +34,23 @@ class Thunderbolt_controller extends Module_controller
      **/
      public function get_thunderbolt_devices()
      {
-        $obj = new View();
+        $sql = "SELECT COUNT(CASE WHEN name <> '' AND name IS NOT NULL THEN 1 END) AS count, name 
+                FROM thunderbolt
+                LEFT JOIN reportdata USING (serial_number)
+                ".get_machine_group_filter()."
+                GROUP BY name
+                ORDER BY count DESC";
 
-        if (! $this->authorized()) {
-            $obj->view('json', array('msg' => array('error' => 'Not authenticated')));
-            return;
+        $out = array();
+        $queryobj = new Thunderbolt_model;
+        foreach ($queryobj->query($sql) as $obj) {
+            if ("$obj->count" !== "0") {
+                $obj->type = $obj->type ? $obj->type : 'Unknown';
+                $out[] = $obj;
+            }
         }
-        
-        $usb = new Thunderbolt_model;
-        $obj->view('json', array('msg' => $usb->get_thunderbolt_devices()));
+
+        jsonView($out);
      }
     
    /**
@@ -51,22 +59,14 @@ class Thunderbolt_controller extends Module_controller
      **/
     public function get_data($serial_number = '')
     {
-        $obj = new View();
-
-        if (! $this->authorized()) {
-            $obj->view('json', array('msg' => 'Not authorized'));
-            return;
-        }
-        
-        $queryobj = new Thunderbolt_model();
-        
         $sql = "SELECT name, vendor, current_speed, device_serial_number
                         FROM thunderbolt 
                         WHERE serial_number = '$serial_number'";
         
+        $obj = new View();        
+        $queryobj = new Thunderbolt_model();
         $thunderbolt_tab = $queryobj->query($sql);
-
         $obj->view('json', array('msg' => current(array('msg' => $thunderbolt_tab)))); 
     }
 		
-} // END class Thunderbolt_controller
+} // End class Thunderbolt_controller

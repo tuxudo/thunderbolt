@@ -1,0 +1,13 @@
+i18n_title: thunderbolt.reporttitle
+not_null_column: name
+table:
+  - column: machine.computer_name
+    i18n_header: listing.computername
+    formatter: clientDetail
+    tab_link: thunderbolt-tab
+  - column: reportdata.serial_number
+    i18n_header: serial
+  - {i18n_header: thunderbolt.name, column: thunderbolt.name}
+  - {i18n_header: thunderbolt.vendor, column: thunderbolt.vendor}
+  - {i18n_header: thunderbolt.current_speed, column: thunderbolt.current_speed}
+  - {i18n_header: thunderbolt.device_serial_number, column: thunderbolt.device_serial_number}
