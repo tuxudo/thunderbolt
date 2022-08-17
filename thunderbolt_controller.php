@@ -59,6 +59,9 @@ class Thunderbolt_controller extends Module_controller
      **/
     public function get_data($serial_number = '')
     {
+        // Remove non-serial number characters
+        $serial_number = preg_replace("/[^A-Za-z0-9_\-]]/", '', $serial_number);
+
         $sql = "SELECT name, vendor, current_speed, device_serial_number
                         FROM thunderbolt 
                         WHERE serial_number = '$serial_number'";
