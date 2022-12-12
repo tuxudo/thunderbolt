@@ -1,4 +1,4 @@
-#!/usr/local/munkireport/munkireport-python2
+#!/usr/local/munkireport/munkireport-python3
 # Author tuxudo
 
 import subprocess
@@ -22,7 +22,10 @@ def get_thunderbolt_info():
     (output, unused_error) = proc.communicate()
 
     try:
-        plist = plistlib.readPlistFromString(output)
+        try:
+            plist = plistlib.readPlistFromString(output)
+        except AttributeError as e:
+            plist = plistlib.loads(output)
         # system_profiler xml is an array
         sp_dict = plist[0]
         items = sp_dict['_items']
@@ -74,10 +77,6 @@ def flatten_thunderbolt_info(array, localization):
 def main():
     """Main"""
 
-    # Set the encoding
-    reload(sys)
-    sys.setdefaultencoding('utf8')
-
     # Read in English localizations from SystemProfiler
     if os.path.isfile('/System/Library/SystemProfiler/SPThunderboltReporter.spreporter/Contents/Resources/en.lproj/Localizable.strings'):
         localization = FoundationPlist.readPlist('/System/Library/SystemProfiler/SPThunderboltReporter.spreporter/Contents/Resources/en.lproj/Localizable.strings')
@@ -94,8 +93,11 @@ def main():
     # Write thunderbolt results to cache
     cachedir = '%s/cache' % os.path.dirname(os.path.realpath(__file__))
     output_plist = os.path.join(cachedir, 'thunderbolt.plist')
-    plistlib.writePlist(result, output_plist)
-#    print plistlib.writePlistToString(result)
+    try:
+        plistlib.writePlist(result, output_plist)
+    except:
+        with open(output_plist, 'wb') as fp:
+            plistlib.dump(result, fp, fmt=plistlib.FMT_XML)
 
 if __name__ == "__main__":
     main()
