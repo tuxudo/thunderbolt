@@ -1,0 +1,9 @@
+type: scrollbox
+widget_id: thunderbolt-devices-widget
+api_url: /module/thunderbolt/get_thunderbolt_devices
+i18n_title: thunderbolt.clienttab
+icon: fa-thunderbolt
+listing_link: /show/listing/thunderbolt/thunderbolt
+search_key: name
+i18n_empty_result: thunderbolt.nothunderbolt
+badge: count
