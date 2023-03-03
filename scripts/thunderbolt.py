@@ -83,7 +83,13 @@ def main():
     elif os.path.isfile('/System/Library/SystemProfiler/SPThunderboltReporter.spreporter/Contents/Resources/English.lproj/Localizable.strings'):
         localization = FoundationPlist.readPlist('/System/Library/SystemProfiler/SPThunderboltReporter.spreporter/Contents/Resources/English.lproj/Localizable.strings')
     elif os.path.isfile('/System/Library/SystemProfiler/SPThunderboltReporter.spreporter/Contents/Resources/Localizable.loctable'):
-        localization = FoundationPlist.readPlist('/System/Library/SystemProfiler/SPThunderboltReporter.spreporter/Contents/Resources/Localizable.loctable')["en"]
+        localization_dict = FoundationPlist.readPlist('/System/Library/SystemProfiler/SPThunderboltReporter.spreporter/Contents/Resources/Localizable.loctable')
+        if "en" in localization_dict:
+            localization = localization_dict["en"]
+        elif "English" in localization_dict:
+            localization = localization_dict["English"]
+        else:
+            localization = {}
     else:
         localization = {}
 
