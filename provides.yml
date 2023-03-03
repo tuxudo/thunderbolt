@@ -1,0 +1,12 @@
+client_tabs:
+    thunderbolt-tab:
+        view: thunderbolt_tab
+        i18n: thunderbolt.devices
+        badge: thunderbolt-cnt
+listings:
+    thunderbolt:
+        view: thunderbolt_listing
+        i18n: thunderbolt.thunderbolt
+widgets:
+    thunderbolt_devices:
+        view: thunderbolt_devices_widget

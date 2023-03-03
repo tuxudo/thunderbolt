@@ -45,6 +45,8 @@ def flatten_thunderbolt_info(array, localization):
         for item in obj:
             # Don't process the bus itself
             if item == '_name' and "thunderbolt_bus" in obj[item]:
+                continue
+            elif item == '_name' and "thunderboltusb4_bus_" in obj[item]:
                 continue  
             elif item == '_items':
                 out = out + flatten_thunderbolt_info(obj['_items'], localization)
