@@ -9,5 +9,7 @@
     "thunderbolt": "Thunderbolt",
     "type": "Device Type",
     "vendor": "Vendor",
+    "timestamp": "Detected",
+    "connected": "Currently Connected",
     "report": "Thunderbolt Report"
 }

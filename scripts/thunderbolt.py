@@ -67,6 +67,8 @@ def flatten_thunderbolt_info(array, localization):
                 device['vendor'] = obj[item]
             elif item == 'aapl_serial_number_key' or item == 'serial_number' or item == 'device_serial_number':
                 device['device_serial_number'] = obj[item]
+            elif item == 'switch_uid_key':
+                device['switch_uid_key'] = obj[item]
 
         # Only append device if it has a name
         if 'name' in device:

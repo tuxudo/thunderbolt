@@ -8,23 +8,23 @@
  **/
 class Thunderbolt_controller extends Module_controller
 {
-	
-	/*** Protect methods with auth! ****/
-	function __construct()
-	{
-		// Store module path
-		$this->module_path = dirname(__FILE__);
-	}
+    
+    /*** Protect methods with auth! ****/
+    function __construct()
+    {
+        // Store module path
+        $this->module_path = dirname(__FILE__);
+    }
 
-	/**
-	 * Default method
-	 * @author avb
-	 *
-	 **/
-	function index()
-	{
-		echo "You've loaded the thunderbolt module!";
-	}
+    /**
+     * Default method
+     * @author avb
+     *
+     **/
+    function index()
+    {
+        echo "You've loaded the thunderbolt module!";
+    }
 
    /**
      * Get Thunderbolt device names for widget
@@ -52,7 +52,7 @@ class Thunderbolt_controller extends Module_controller
 
         jsonView($out);
      }
-    
+
    /**
      * Retrieve data in json format
      *
@@ -62,14 +62,13 @@ class Thunderbolt_controller extends Module_controller
         // Remove non-serial number characters
         $serial_number = preg_replace("/[^A-Za-z0-9_\-]]/", '', $serial_number);
 
-        $sql = "SELECT name, vendor, current_speed, device_serial_number
+        $sql = "SELECT `name`, `connected`, `vendor`, `current_speed`, `device_serial_number`, `timestamp`
                         FROM thunderbolt 
                         WHERE serial_number = '$serial_number'";
-        
+
         $obj = new View();        
         $queryobj = new Thunderbolt_model();
         $thunderbolt_tab = $queryobj->query($sql);
         $obj->view('json', array('msg' => current(array('msg' => $thunderbolt_tab)))); 
     }
-		
 } // End class Thunderbolt_controller

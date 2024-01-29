@@ -5,7 +5,7 @@
 
 <script>
 $(document).on('appReady', function(){
-	$.getJSON(appUrl + '/module/thunderbolt/get_data/' + serialNumber, function(data){
+    $.getJSON(appUrl + '/module/thunderbolt/get_data/' + serialNumber, function(data){
         
         // Check if we have data
         if( data == "" || ! data){
@@ -28,6 +28,17 @@ $(document).on('appReady', function(){
                     if(skipThese.indexOf(prop) == -1){
                         if (d[prop] == null || d[prop] == ""){
                             // Do nothing for the nulls to blank them
+
+                        } else if(prop == 'connected' && d[prop] == 1){
+                            rows = rows + '<tr><th>'+i18n.t('thunderbolt.'+prop)+'</th><td>'+i18n.t('yes')+'</td></tr>';
+
+                        } else if(prop == 'connected' && d[prop] == 0){
+                            rows = rows + '<tr><th>'+i18n.t('thunderbolt.'+prop)+'</th><td>'+i18n.t('no')+'</td></tr>';
+
+                        } else if(prop == 'timestamp' && d[prop] > 0){
+                            var date = new Date(d[prop] * 1000);
+                            rows = rows + '<tr><th>'+i18n.t('thunderbolt.'+prop)+'</th><td><span title="'+date+'">'+moment(date).fromNow()+'</td></tr>';
+
                         } else {
                             rows = rows + '<tr><th>'+i18n.t('thunderbolt.'+prop)+'</th><td>'+d[prop]+'</td></tr>';
                         }

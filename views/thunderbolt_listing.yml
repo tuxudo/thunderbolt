@@ -1,5 +1,6 @@
 i18n_title: thunderbolt.reporttitle
-not_null_column: name
+js_link: module/thunderbolt/js/thunderbolt
+not_null_column: thunderbolt.name
 table:
   - column: machine.computer_name
     i18n_header: listing.computername
@@ -9,5 +10,10 @@ table:
     i18n_header: serial
   - {i18n_header: thunderbolt.name, column: thunderbolt.name}
   - {i18n_header: thunderbolt.vendor, column: thunderbolt.vendor}
+  - {i18n_header: thunderbolt.connected, column: thunderbolt.connected, formatter: format_thunderbolt_yes_no}
   - {i18n_header: thunderbolt.current_speed, column: thunderbolt.current_speed}
+  - {i18n_header: thunderbolt.timestamp, column: thunderbolt.timestamp, formatter: timestampToMoment}
   - {i18n_header: thunderbolt.device_serial_number, column: thunderbolt.device_serial_number}
+
+
+  
