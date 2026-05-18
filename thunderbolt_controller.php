@@ -64,7 +64,9 @@ class Thunderbolt_controller extends Module_controller
 
         $sql = "SELECT `name`, `connected`, `vendor`, `current_speed`, `device_serial_number`, `timestamp`
                         FROM thunderbolt 
-                        WHERE serial_number = '$serial_number'";
+                        LEFT JOIN reportdata USING (serial_number)
+                        ".get_machine_group_filter()."
+                        AND serial_number = '$serial_number'";
 
         $obj = new View();        
         $queryobj = new Thunderbolt_model();
